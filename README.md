@@ -45,3 +45,13 @@ Install DjangoRestFramework as follows
 
 ==> pip install markdown
 ```
+
+### Start core app
+
+```
+cd unicornfullstack
+
+(we should now be in the folder containing manage.py)
+
+==> python manage.py startapp core
+```
