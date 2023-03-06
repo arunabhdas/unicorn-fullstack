@@ -4,6 +4,7 @@ Unicorn Fullstack
 
 ## Steps
 
+### Setup virtualenv and install dependencies
 ```
 
 ==> python3 -m venv myvenv
@@ -19,4 +20,12 @@ pip 22.3.1 from /Users/coder/repos/arunabhdas/githubrepos/unicorn-fullstack/myve
 
 
 ==> pip install --upgrade pip
+```
+
+### Install Django
+
+```
+pip install Django
+
+==> django-admin startproject unicornfullstack
 ```
