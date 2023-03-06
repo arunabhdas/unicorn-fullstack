@@ -46,7 +46,7 @@ Install DjangoRestFramework as follows
 ==> pip install markdown
 ```
 
-### Start core app
+### Scaffold core app
 
 ```
 cd unicornfullstack
