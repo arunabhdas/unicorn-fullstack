@@ -90,3 +90,67 @@ class Product(models.Model):
         ordering = ["name", "created_at"]
 
 ```
+
+
+Run below following command to create the api app
+
+python manage.py startapp api
+Add api to the INSTALLED_APPS section as below
+
+INSTALLED_APPS = [
+    'django.contrib.admin',
+    'django.contrib.auth',
+    'django.contrib.contenttypes',
+    'django.contrib.sessions',
+    'django.contrib.messages',
+    'django.contrib.staticfiles',
+    'core',
+    'api',
+]
+Run migrations
+
+python manage.py makemigrations
+python manage.py migrate
+Add ‘rest_framework’ to INSTALLED_APPS as below
+
+INSTALLED_APPS = [
+    ...
+    'rest_framework',
+]
+Having added ‘rest_framework’ to settings.py, should now look as below
+
+INSTALLED_APPS = [
+    'django.contrib.admin',
+    'django.contrib.auth',
+    'django.contrib.contenttypes',
+    'django.contrib.sessions',
+    'django.contrib.messages',
+    'django.contrib.staticfiles',
+    'core',
+    'api',
+    'rest_framework',
+]
+Modify root urls.py as below to include api/
+
+from django.contrib import admin
+from django.urls import path, include
+
+urlpatterns = [
+path('admin/', admin.site.urls),
+path('api/', include('api.urls')),
+]
+Modify api/urls.py as below
+
+from django.urls import include, path
+from rest_framework import routers
+from . import views
+router = routers.DefaultRouter()
+# Wire up our API using automatic URL routing.
+# Additionally, we include login URLs for the browsable API.
+urlpatterns = [
+    path('', include(router.urls)),
+    path('customroutes/', views.getCustomRoutes),
+]
+Modify api/views.py to return a function-based route with a JsonResponse to return a dictionary of routes as below
+
+
