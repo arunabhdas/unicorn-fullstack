@@ -28,4 +28,5 @@ pip 22.3.1 from /Users/coder/repos/arunabhdas/githubrepos/unicorn-fullstack/myve
 pip install Django
 
 ==> django-admin startproject unicornfullstack
+
 ```
