@@ -25,8 +25,23 @@ pip 22.3.1 from /Users/coder/repos/arunabhdas/githubrepos/unicorn-fullstack/myve
 ### Install Django
 
 ```
-pip install Django
+pip install Django and pip freeze > requirements.txt
+
+OR
+
+pip install -r requirements.txt
 
 ==> django-admin startproject unicornfullstack
 
+```
+
+
+### Install DjangoRestFramework
+
+Install DjangoRestFramework as follows
+
+```
+==> pip install djangorestframework
+
+==> pip install markdown
 ```
