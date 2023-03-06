@@ -5,8 +5,8 @@ from piccolo.conf.apps import AppRegistry
 
 DB = PostgresEngine(
     config={
-        "database": "piccolo_project",
-        "user": "postgres",
+        "database": "unicorn_fullstack_development",
+        "user": "unicorn_user",
         "password": "",
         "host": "localhost",
         "port": 5432,
