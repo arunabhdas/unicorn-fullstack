@@ -18,3 +18,13 @@ class Status(Enum):
 class CreateTaskSchema(BaseModel):
     priority:Optional[Priority] = 'low'
     status: Optional[Status] = 'pending'
+
+
+class GetTaskSchema(BaseModel):
+    id: UUID
+    created: datetime
+    priority: Priority
+    status: Status
+    task: str
+
+
