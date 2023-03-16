@@ -33,6 +33,8 @@ pip install sqlalchemy
 ```
 cd unicorn-fullstack-fastapi
 
+cd blog
+
 uvicorn main:app --reload
 
 ```
