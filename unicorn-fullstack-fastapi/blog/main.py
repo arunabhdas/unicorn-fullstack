@@ -1,4 +1,4 @@
-from fastapi import FastAPI, Depends
+from fastapi import FastAPI, Depends, status
 from schemas import Post
 
 import models, schemas
@@ -23,7 +23,7 @@ def get_db():
 def index():
     return 'hello'
 
-@app.post('/blogpost')
+@app.post('/blogpost', status_code=status.HTTP_201_CREATED)
 def create(request: schemas.Post, db: Session = Depends(get_db)):
     new_post = models.Post(title=request.title, body=request.body)
     db.add(new_post)
