@@ -1,4 +1,4 @@
-from fastapi import FastAPI, Depends, status
+from fastapi import FastAPI, Depends, Response, status
 from schemas import Post
 
 import models, schemas
@@ -37,7 +37,10 @@ def get_posts(db: Session = Depends(get_db)):
    return posts
 
 
-@app.get('/blogpost/{id}')
-def read_post(id, db: Session = Depends(get_db)):
-    post = db.query(models.Post).filter(models.Post.id == id).first()
+@app.get('/blogpost/{post_id}', status_code=200)
+def read_post(post_id, response: Response, db: Session = Depends(get_db)):
+    post = db.query(models.Post).filter(models.Post.id == post_id).first()
+    if not post:
+        response.status_code = status.HTTP_404_NOT_FOUND
+        return {'detail': f"Post with id {post_id} is not available"}
     return post
