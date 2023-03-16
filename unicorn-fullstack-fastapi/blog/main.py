@@ -36,3 +36,8 @@ def get_posts(db: Session = Depends(get_db)):
    posts = db.query(models.Post).all()
    return posts
 
+
+@app.get('/blogpost/{id}')
+def read_post(id, db: Session = Depends(get_db)):
+    post = db.query(models.Post).filter(models.Post.id == id).first()
+    return post
