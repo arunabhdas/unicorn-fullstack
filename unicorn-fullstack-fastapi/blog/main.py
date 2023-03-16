@@ -23,11 +23,16 @@ def get_db():
 def index():
     return 'hello'
 
-@app.post('/blog')
+@app.post('/blogpost')
 def create(request: schemas.Post, db: Session = Depends(get_db)):
     new_post = models.Post(title=request.title, body=request.body)
     db.add(new_post)
     db.commit()
     db.refresh(new_post)
     return new_post
+
+@app.get('/blogpost')
+def get_posts(db: Session = Depends(get_db)):
+   posts = db.query(models.Post).all()
+   return posts
 
