@@ -29,6 +29,13 @@ def create(request: schemas.Post, db: Session = Depends(get_db)):
     db.refresh(new_post)
     return new_post
 
+@app.delete('/blogpost/{post_id}', status_code=status.HTTP_204_NO_CONTENT)
+def destroy(post_id, db: Session = Depends(get_db)):
+    db.query(models.Post).filter(models.Post.id == post_id).delete(synchronize_session=False)
+    db.commit()
+    return 'done'
+
+
 @app.get('/blogpost')
 def get_posts(db: Session = Depends(get_db)):
    posts = db.query(models.Post).all()
