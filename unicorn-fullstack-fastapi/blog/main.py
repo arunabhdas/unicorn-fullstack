@@ -1,4 +1,4 @@
-from fastapi import FastAPI, Depends, Response, status
+from fastapi import FastAPI, Depends, Response, status, HTTPException
 from schemas import Post
 
 import models, schemas
@@ -15,8 +15,6 @@ def get_db():
         yield db
     finally:
         db.close()
-
-
 
 
 @app.get('/')
@@ -41,6 +39,7 @@ def get_posts(db: Session = Depends(get_db)):
 def read_post(post_id, response: Response, db: Session = Depends(get_db)):
     post = db.query(models.Post).filter(models.Post.id == post_id).first()
     if not post:
-        response.status_code = status.HTTP_404_NOT_FOUND
-        return {'detail': f"Post with id {post_id} is not available"}
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=f"Post with id {post_id} is not available")
+        # response.status_code = status.HTTP_404_NOT_FOUND
+        # return {'detail': f"Post with id {post_id} is not available"}
     return post
