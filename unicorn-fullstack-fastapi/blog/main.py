@@ -29,11 +29,17 @@ def create(request: schemas.Post, db: Session = Depends(get_db)):
     db.refresh(new_post)
     return new_post
 
-@app.delete('/blogpost/{post_id}', status_code=status.HTTP_204_NO_CONTENT)
+@app.delete('/blogpost/{post_id}', status_code=200)
 def destroy(post_id, db: Session = Depends(get_db)):
     db.query(models.Post).filter(models.Post.id == post_id).delete(synchronize_session=False)
     db.commit()
-    return 'done'
+    return {'detail': f"Post with id {post_id} was deleted"}
+
+@app.put('/blogpost/{post_id}', status_code=status.HTTP_202_ACCEPTED)
+def update(post_id, request: schemas.Post, db: Session = Depends(get_db)):
+    db.query(models.Post).filter(models.Post.id == post_id).update({'title': request.title, 'body': request.body})
+    db.commit()
+    return {'detail': f"Post with id {post_id} was updated"}
 
 
 @app.get('/blogpost')
@@ -47,6 +53,4 @@ def read_post(post_id, response: Response, db: Session = Depends(get_db)):
     post = db.query(models.Post).filter(models.Post.id == post_id).first()
     if not post:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=f"Post with id {post_id} is not available")
-        # response.status_code = status.HTTP_404_NOT_FOUND
-        # return {'detail': f"Post with id {post_id} is not available"}
     return post
