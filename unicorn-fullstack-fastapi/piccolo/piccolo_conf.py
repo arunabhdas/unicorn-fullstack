@@ -1,15 +1,22 @@
 from piccolo.engine.postgres import PostgresEngine
 
 from piccolo.conf.apps import AppRegistry
+import os
+
+database_host = os.environ.get('DATABASE_HOST', '')
+database_name = os.environ.get('DATABASE_NAME', '')
+database_username = os.environ.get('DATABASE_USERNAME', '')
+database_password = os.environ.get('DATABASE_PASSWORD', '')
+database_port= os.environ.get('DATABASE_PORT', '')
 
 
 DB = PostgresEngine(
     config={
-        "database": "unicorn_fullstack_development",
-        "user": "unicorn_user",
-        "password": "",
-        "host": "localhost",
-        "port": 5432,
+        "database": database_name,
+        "user": database_username,
+        "password": database_password,
+        "host": database_host,
+        "port": database_port,
     }
 )
 
