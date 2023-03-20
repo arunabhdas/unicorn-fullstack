@@ -39,6 +39,14 @@ uvicorn main:app --reload
 
 ```
 
+## Piccolo
+
+```
+pip install piccolo_admin
+
+
+```
+
 
 ## Links
 
