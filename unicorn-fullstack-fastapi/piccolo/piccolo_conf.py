@@ -2,12 +2,15 @@ from piccolo.engine.postgres import PostgresEngine
 
 from piccolo.conf.apps import AppRegistry
 import os
+from dotenv import load_dotenv
 
-database_host = os.environ.get('DATABASE_HOST', '')
-database_name = os.environ.get('DATABASE_NAME', '')
-database_username = os.environ.get('DATABASE_USERNAME', '')
-database_password = os.environ.get('DATABASE_PASSWORD', '')
-database_port= os.environ.get('DATABASE_PORT', '')
+load_dotenv()
+
+database_host = os.getenv('DATABASE_HOST')
+database_name = os.getenv('DATABASE_NAME')
+database_username = os.getenv('DATABASE_USERNAME')
+database_password = os.getenv('DATABASE_PASSWORD')
+database_port= os.getenv('DATABASE_PORT')
 
 
 DB = PostgresEngine(
