@@ -16,7 +16,6 @@ def get_db():
     finally:
         db.close()
 
-
 @app.get('/')
 def index():
     return 'hello'
@@ -31,7 +30,10 @@ def create(request: schemas.Post, db: Session = Depends(get_db)):
 
 @app.delete('/blogpost/{post_id}', status_code=200)
 def destroy(post_id, db: Session = Depends(get_db)):
-    db.query(models.Post).filter(models.Post.id == post_id).delete(synchronize_session=False)
+    post = db.query(models.Post).filter(models.Post.id == post_id)
+    if not post.first():
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=f"Post with id {post_id} not found")
+    post.delete(synchronize_session=False)
     db.commit()
     return {'detail': f"Post with id {post_id} was deleted"}
 
@@ -44,12 +46,10 @@ def update(post_id, request: schemas.Post, db: Session = Depends(get_db)):
     db.commit()
     return {'detail': f"Post with id {post_id} was updated"}
 
-
 @app.get('/blogpost')
 def get_posts(db: Session = Depends(get_db)):
    posts = db.query(models.Post).all()
    return posts
-
 
 @app.get('/blogpost/{post_id}', status_code=200)
 def read_post(post_id, response: Response, db: Session = Depends(get_db)):
