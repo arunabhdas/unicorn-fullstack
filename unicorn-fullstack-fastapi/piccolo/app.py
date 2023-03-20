@@ -4,13 +4,20 @@ from fastapi import FastAPI
 from fastapi.responses import JSONResponse
 from piccolo_admin.endpoints import create_admin
 from piccolo_api.crud.serializers import create_pydantic_model
+from piccolo_api.fastapi.endpoints import (
+    FastAPIWrapper,
+    PiccoloCRUD,
+    FastAPIKwargs,
+)
 from piccolo.engine import engine_finder
 from starlette.routing import Route, Mount
 from starlette.staticfiles import StaticFiles
 
 from home.endpoints import HomeEndpoint
 from home.piccolo_app import APP_CONFIG
-from home.tables import Task
+from home.tables import Post
+from home.tables import Todo
+from home.tables import Idea
 
 
 app = FastAPI(
@@ -29,48 +36,44 @@ app = FastAPI(
 )
 
 
-TaskModelIn: t.Any = create_pydantic_model(table=Task, model_name="TaskModelIn")
-TaskModelOut: t.Any = create_pydantic_model(
-    table=Task, include_default_columns=True, model_name="TaskModelOut"
+
+
+###############################################################################
+# Rather than defining the FastAPI endpoints by hand, we can use
+# `FastAPIWrapper`, which can save us a lot of time.
+
+FastAPIWrapper(
+    "/posts",
+    fastapi_app=app,
+    piccolo_crud=PiccoloCRUD(Post, read_only=False),
+    fastapi_kwargs=FastAPIKwargs(
+        all_routes={"tags": ["Post"]},
+    ),
 )
 
+FastAPIWrapper(
+    "/todos",
+    fastapi_app=app,
+    piccolo_crud=PiccoloCRUD(Todo, read_only=False),
+    fastapi_kwargs=FastAPIKwargs(
+        all_routes={"tags": ["Todo"]},
+    ),
+)
 
-@app.get("/tasks/", response_model=t.List[TaskModelOut])
-async def tasks():
-    return await Task.select().order_by(Task.id)
+FastAPIWrapper(
+    "/ideas",
+    fastapi_app=app,
+    piccolo_crud=PiccoloCRUD(Idea, read_only=False),
+    fastapi_kwargs=FastAPIKwargs(
+        all_routes={"tags": ["Idea"]},
+    ),
+)
 
-
-@app.post("/tasks/", response_model=TaskModelOut)
-async def create_task(task_model: TaskModelIn):
-    task = Task(**task_model.dict())
-    await task.save()
-    return task.to_dict()
-
-
-@app.put("/tasks/{task_id}/", response_model=TaskModelOut)
-async def update_task(task_id: int, task_model: TaskModelIn):
-    task = await Task.objects().get(Task.id == task_id)
-    if not task:
-        return JSONResponse({}, status_code=404)
-
-    for key, value in task_model.dict().items():
-        setattr(task, key, value)
-
-    await task.save()
-
-    return task.to_dict()
+###############################################################################
 
 
-@app.delete("/tasks/{task_id}/")
-async def delete_task(task_id: int):
-    task = await Task.objects().get(Task.id == task_id)
-    if not task:
-        return JSONResponse({}, status_code=404)
-
-    await task.remove()
-
-    return JSONResponse({})
-
+###############################################################################
+# Connection pool.
 
 @app.on_event("startup")
 async def open_database_connection_pool():
