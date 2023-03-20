@@ -39,7 +39,7 @@ uvicorn main:app --reload
 
 ```
 
-## Piccolo
+## New Project With Piccolo
 
 ```
 pip install piccolo['all']
@@ -56,6 +56,35 @@ Run `pip install -r requirements.txt` and `python main.py` to get started.
 
 ```
 
+## Run migrations With Piccolo
+
+```
+piccolo migrations forwards session_auth
+
+piccolo migrations forwards user
+
+```
+
+### Create User With Piccolo
+
+```
+==> piccolo user create
+Enter username (coder):
+admin
+Enter email:
+appliaison@gmail.com
+Enter password:
+
+Confirm password:
+
+Admin user? Enter y or n:
+y
+Superuser? Enter y or n:
+y
+Active? Enter y or n:
+y
+Created User 3
+```
 
 ## Links
 
