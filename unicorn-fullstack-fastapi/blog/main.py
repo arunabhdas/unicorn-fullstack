@@ -37,7 +37,10 @@ def destroy(post_id, db: Session = Depends(get_db)):
 
 @app.put('/blogpost/{post_id}', status_code=status.HTTP_202_ACCEPTED)
 def update(post_id, request: schemas.Post, db: Session = Depends(get_db)):
-    db.query(models.Post).filter(models.Post.id == post_id).update({'title': request.title, 'body': request.body})
+    post = db.query(models.Post).filter(models.Post.id == post_id)
+    if not post.first():
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=f"Post with id {post_id} not found")
+    post.update({'title': request.title, 'body': request.body})
     db.commit()
     return {'detail': f"Post with id {post_id} was updated"}
 
