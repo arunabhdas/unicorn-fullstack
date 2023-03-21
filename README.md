@@ -64,6 +64,17 @@ piccolo migrations forwards session_auth
 piccolo migrations forwards user
 
 ```
+### User and Session Migrations With Piccolo
+
+```
+piccolo migrations check
+
+piccolo migrations forwards user
+
+piccolo migrations forwards session_auth
+
+```
+
 
 ### Create User With Piccolo
 
@@ -85,6 +96,8 @@ Active? Enter y or n:
 y
 Created User 3
 ```
+
+
 
 ## Dotenv
 
