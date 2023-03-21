@@ -3,9 +3,10 @@ from starlette.routing import Mount
 from piccolo_admin.endpoints import create_admin
 import uvicorn
 
-from tables import Task
+# from tables import Task
+from schemas import Post
 
-admin = create_admin([Task])
+admin = create_admin([Post])
 
 app = Starlette(routes=[
     Mount('/admin/', admin)
