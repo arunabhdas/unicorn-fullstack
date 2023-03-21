@@ -55,6 +55,14 @@ uvicorn [0], Hypercorn [1]
 Run `pip install -r requirements.txt` and `python main.py` to get started.
 
 ```
+## Create migrations With Piccolo
+
+```
+piccolo migrations new home --auto
+
+piccolo migrations forwards home
+
+```
 
 ## Run migrations With Piccolo
 

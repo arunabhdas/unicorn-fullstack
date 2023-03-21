@@ -18,7 +18,7 @@ from home.piccolo_app import APP_CONFIG
 from home.tables import Post
 from home.tables import Todo
 from home.tables import Idea
-
+from piccolo.apps.user.tables import BaseUser
 
 app = FastAPI(
     routes=[
@@ -26,7 +26,7 @@ app = FastAPI(
         Mount(
             "/admin/",
             create_admin(
-                tables=APP_CONFIG.table_classes,
+                tables=APP_CONFIG.table_classes + [BaseUser],
                 # Required when running under HTTPS:
                 # allowed_hosts=['my_site.com']
             ),
@@ -35,7 +35,9 @@ app = FastAPI(
     ],
 )
 
+###############################################################################
 
+###############################################################################
 
 
 ###############################################################################
@@ -68,6 +70,16 @@ FastAPIWrapper(
         all_routes={"tags": ["Idea"]},
     ),
 )
+
+FastAPIWrapper(
+    "/users",
+    fastapi_app=app,
+    piccolo_crud=PiccoloCRUD(BaseUser, read_only=False),
+    fastapi_kwargs=FastAPIKwargs(
+        all_routes={"tags": ["BaseUser"]},
+    ),
+)
+
 
 ###############################################################################
 

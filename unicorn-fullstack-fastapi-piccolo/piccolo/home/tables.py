@@ -1,5 +1,15 @@
 from piccolo.table import Table
-from piccolo.columns import Varchar, Boolean
+from piccolo.columns import (
+    Varchar,
+    Integer,
+    ForeignKey,
+    Boolean,
+    Text,
+    Timestamp,
+    Numeric,
+    Real
+)
+from piccolo.apps.user.tables import BaseUser
 
 
 #class Task(Table):
@@ -10,15 +20,29 @@ from piccolo.columns import Varchar, Boolean
 #    name = Varchar()
 #    completed = Boolean(default=False)
 
+class Author(Table):
+    """
+    Author
+    """
+
+    name = Varchar()
+    username = Varchar()
+    email = Varchar()
+    password = Varchar()
+    active = Boolean(default=False)
+
 
 class Post(Table):
     """
-    An example table.
+    Post
     """
 
     title = Varchar()
     description = Varchar()
+    author = ForeignKey(references=Author)
     completed = Boolean(default=False)
+
+
 
 
 class Todo(Table):
@@ -28,6 +52,7 @@ class Todo(Table):
 
     title = Varchar()
     description = Varchar()
+    author = ForeignKey(references=Author)
     completed = Boolean(default=False)
 
 
@@ -38,4 +63,16 @@ class Idea(Table):
 
     title = Varchar()
     description = Varchar()
+    author = ForeignKey(references=Author)
+    completed = Boolean(default=False)
+
+
+class Project(Table):
+    """
+    An example table.
+    """
+
+    title = Varchar()
+    description = Varchar()
+    owner = ForeignKey(references=BaseUser)
     completed = Boolean(default=False)
