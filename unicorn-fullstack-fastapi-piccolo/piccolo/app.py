@@ -15,9 +15,7 @@ from starlette.staticfiles import StaticFiles
 
 from home.endpoints import HomeEndpoint
 from home.piccolo_app import APP_CONFIG
-from home.tables import Post
-from home.tables import Todo
-from home.tables import Idea
+from home.tables import Project
 from piccolo.apps.user.tables import BaseUser
 
 app = FastAPI(
@@ -45,29 +43,11 @@ app = FastAPI(
 # `FastAPIWrapper`, which can save us a lot of time.
 
 FastAPIWrapper(
-    "/posts",
+    "/projects",
     fastapi_app=app,
-    piccolo_crud=PiccoloCRUD(Post, read_only=False),
+    piccolo_crud=PiccoloCRUD(Project, read_only=False),
     fastapi_kwargs=FastAPIKwargs(
-        all_routes={"tags": ["Post"]},
-    ),
-)
-
-FastAPIWrapper(
-    "/todos",
-    fastapi_app=app,
-    piccolo_crud=PiccoloCRUD(Todo, read_only=False),
-    fastapi_kwargs=FastAPIKwargs(
-        all_routes={"tags": ["Todo"]},
-    ),
-)
-
-FastAPIWrapper(
-    "/ideas",
-    fastapi_app=app,
-    piccolo_crud=PiccoloCRUD(Idea, read_only=False),
-    fastapi_kwargs=FastAPIKwargs(
-        all_routes={"tags": ["Idea"]},
+        all_routes={"tags": ["Project"]},
     ),
 )
 
