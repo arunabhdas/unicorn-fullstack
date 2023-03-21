@@ -51,6 +51,7 @@ pure-eval==0.2.2
 pydantic==1.10.6
 Pygments==2.14.0
 PyJWT==2.6.0
+python-dotenv==1.0.0
 python-multipart==0.0.6
 pytz==2022.7.1
 rfc3986==1.5.0

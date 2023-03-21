@@ -86,6 +86,10 @@ y
 Created User 3
 ```
 
+## Dotenv
+
+pip install python-dotenv
+
 ## Links
 
 https://youtu.be/GRD3z95vs-A
