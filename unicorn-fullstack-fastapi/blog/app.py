@@ -6,6 +6,7 @@ import uvicorn
 # from tables import Task
 from schemas import Post
 
+# admin = create_admin([Task])
 admin = create_admin([Post])
 
 app = Starlette(routes=[

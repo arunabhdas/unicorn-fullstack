@@ -109,3 +109,10 @@ https://youtu.be/GRD3z95vs-A
 
 
 https://youtu.be/7t2alSnE2-I
+
+
+## Troubleshooting
+
+https://github.com/piccolo-orm/piccolo/issues/8
+
+https://github.com/piccolo-orm/piccolo/discussions/794
