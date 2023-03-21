@@ -57,3 +57,6 @@ def read_post(post_id, response: Response, db: Session = Depends(get_db)):
     if not post:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=f"Post with id {post_id} is not available")
     return post
+
+
+@app.post('/user')
