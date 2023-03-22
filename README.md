@@ -46,6 +46,16 @@ uvicorn main:app --reload
 
 ```
 
+## Run piccolo
+
+```
+cd unicorn-fullstack-fastapi-piccolo
+
+cd piccolo
+
+python main.py
+```
+
 ## New Project With Piccolo
 
 ```
