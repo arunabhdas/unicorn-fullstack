@@ -8,9 +8,14 @@
 
 <img src="https://github.com/arunabhdas/unicorn-fullstack/blob/main/screenshots/screenshot_7.png" width="720"/>
 
-## Steps
+## Steps for blog
 
 ```
+
+cd unicorn-fullstack-fastapi
+
+cd blog
+
 ==> python3 -m venv myvenv
 
 ==> source myvenv/bin/activate
