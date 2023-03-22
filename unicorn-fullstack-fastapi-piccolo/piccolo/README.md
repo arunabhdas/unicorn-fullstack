@@ -2,7 +2,7 @@
 
 ## Screenshots
 
-<img src="https://github.com/arunabhdas/unicorn-fullstack/blob/main/screenshots/screenshot_4.png" width="480"/>
+<img src="https://github.com/arunabhdas/unicorn-fullstack/blob/main/screenshots/screenshot_4.png" width="720"/>
 
 ## Setup
 
