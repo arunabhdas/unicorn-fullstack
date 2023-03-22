@@ -77,6 +77,13 @@ piccolo migrations forwards session_auth
 piccolo migrations forwards user
 
 ```
+
+## Run token auth migrations With Piccolo
+
+```
+piccolo migrations forwards token_auth
+```
+
 ### User and Session Migrations With Piccolo
 
 ```
