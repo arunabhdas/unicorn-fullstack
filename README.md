@@ -6,6 +6,8 @@
 
 <img src="https://github.com/arunabhdas/unicorn-fullstack/blob/main/screenshots/screenshot_5.png" width="720"/>
 
+<img src="https://github.com/arunabhdas/unicorn-fullstack/blob/main/screenshots/screenshot_7.png" width="720"/>
+
 ## Steps
 
 ```
