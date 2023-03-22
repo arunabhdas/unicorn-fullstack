@@ -9,3 +9,9 @@ class User(BaseModel):
     email: str
     password: str
 
+
+class ShowPost(Post):
+    title: str
+    body: str
+    class Config():
+        orm_mode = True

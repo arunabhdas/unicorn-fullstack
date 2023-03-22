@@ -1,5 +1,6 @@
 from fastapi import FastAPI, Depends, Response, status, HTTPException
 from schemas import Post
+from typing import List
 
 import models, schemas
 from database import SessionLocal, engine
@@ -20,6 +21,7 @@ def get_db():
 def index():
     return 'hello'
 
+###############################################################################
 @app.post('/blogpost', status_code=status.HTTP_201_CREATED)
 def create(request: schemas.Post, db: Session = Depends(get_db)):
     new_post = models.Post(title=request.title, body=request.body)
@@ -46,14 +48,28 @@ def update(post_id, request: schemas.Post, db: Session = Depends(get_db)):
     db.commit()
     return {'detail': f"Post with id {post_id} was updated"}
 
-@app.get('/blogpost')
+@app.get('/blogposts', response_model=List[schemas.ShowPost])
 def get_posts(db: Session = Depends(get_db)):
    posts = db.query(models.Post).all()
    return posts
 
-@app.get('/blogpost/{post_id}', status_code=200)
+@app.get('/blogpost/{post_id}', status_code=200, response_model=schemas.ShowPost)
 def read_post(post_id, response: Response, db: Session = Depends(get_db)):
     post = db.query(models.Post).filter(models.Post.id == post_id).first()
     if not post:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=f"Post with id {post_id} is not available")
     return post
+
+###############################################################################
+
+@app.post('/user')
+def create_user(request: schemas.User, db: Session = Depends(get_db)):
+    new_user = models.User(request)
+    db.add(new_user)
+    db.commit()
+    db.refresh()
+    return new_user
+
+
+###############################################################################
+

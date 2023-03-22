@@ -33,7 +33,7 @@ pip install sqlalchemy
 ```
 
 
-## Run
+## Run blog
 
 ```
 cd unicorn-fullstack-fastapi
